@@ -102,6 +102,13 @@
     .game-box:hover {
       transform: scale(1.05);
     }
+
+    .game-box::after {
+      content: "Coming Soon...";
+      font-size: 1.5em;
+      color: #00ffcc;
+      opacity: 0.7;
+    }
   </style>
 </head>
 <body>
@@ -112,11 +119,8 @@
 
   <!-- Game Container with rounded cubes -->
   <div class="game-container">
-    <!-- Left Cube (DLC) -->
-    <div class="game-box" id="dlc">
-      <h3>"*0d!)</h3>
-      <p>Coming Soon</p>
-    </div>
+    <!-- Left Cube (Secret Game Placeholder) -->
+    <div class="game-box" id="secret1"></div>
 
     <!-- Terraformation Unknown -->
     <div class="card">
@@ -133,11 +137,8 @@
       </div>
     </div>
 
-    <!-- Right Cube (Terra 2) -->
-    <div class="game-box" id="terra2">
-      <h3>"*f90403</h3>
-      <p>Coming Soon</p>
-    </div>
+    <!-- Right Cube (Secret Game Placeholder) -->
+    <div class="game-box" id="secret2"></div>
   </div>
 
 </body>
