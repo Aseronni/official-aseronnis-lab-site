@@ -34,19 +34,104 @@
     .news-item p {
       margin: 0;
     }
+
+    /* Button to expand/collapse */
+    .expand-btn {
+      background: #00ffcc;
+      color: #0d0d0d;
+      border: none;
+      padding: 0.5em 1em;
+      font-size: 1em;
+      border-radius: 0.75em;
+      cursor: pointer;
+      margin-top: 1em;
+      transition: background 0.3s ease;
+    }
+
+    .expand-btn:hover {
+      background: #00cca5;
+    }
+
+    /* Style for hidden content */
+    .hidden-content {
+      display: none;
+      margin-top: 1em;
+      padding: 1em;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 1em;
+    }
+
   </style>
+  <script>
+    // Function to toggle the visibility of content
+    function toggleContent(id) {
+      const content = document.getElementById(id);
+      const button = document.getElementById("btn-" + id);
+      if (content.style.display === "none" || content.style.display === "") {
+        content.style.display = "block";
+        button.innerHTML = "Show Less";
+      } else {
+        content.style.display = "none";
+        button.innerHTML = "Read More";
+      }
+    }
+  </script>
 </head>
 <body>
   <h1>News</h1>
 
   <div class="news-item">
-    <h2>?</h2>
-    <p>...</p>
+    <h2>Super Major Change</h2>
+    <p>Unity Announcement</p>
+    <button class="expand-btn" id="btn-super-major" onclick="toggleContent('super-major')">Read More</button>
+    <div class="hidden-content" id="super-major">
+      <p>Hey Researchers!
+        Terraformation Unknown is Evolving
+        Now in Development on Unity! 🎮
+        
+        The original TurboWarp version will now be labeled [LEGACY] and kept online as a tribute to where it all started.
+        
+        This new chapter opens up so many possibilities—better visuals, deeper systems, and a more immersive world. I'm beyond excited to share what's coming.
+        
+        Stay tuned for sneak peeks and dev updates!
+        — Aseronni</p>
+    </div>
   </div>
 
   <div class="news-item">
     <h2>Major Update</h2>
-    <p>0.3.0 Release!</p>
+    <p>0.3.0 Release! [LEGACY]</p>
+    <button class="expand-btn" id="btn-major-0.3" onclick="toggleContent('major-0.3')">Read More</button>
+    <div class="hidden-content" id="major-0.3">
+      <p>Version 0.3.0 has introduced a lot of exciting new features, including fixing the ship, multi-gen tier 2 and more!</p>
+    </div>
+  </div>
+
+  <div class="news-item">
+    <h2>Major Update</h2>
+    <p>0.2.0 Release! [LEGACY]</p>
+    <button class="expand-btn" id="btn-major-0.2" onclick="toggleContent('major-0.2')">Read More</button>
+    <div class="hidden-content" id="major-0.2">
+      <p>Version 0.2.0 introduces new UI and visual style and a main menu, zytes and settings.</p>
+    </div>
+  </div>
+
+  <div class="news-item">
+    <h2>Major Update</h2>
+    <p>0.1.0 Release! [LEGACY]</p>
+    <button class="expand-btn" id="btn-major-0.1" onclick="toggleContent('major-0.1')">Read More</button>
+    <div class="hidden-content" id="major-0.1">
+      <p>The 0.1.0 release is the first public version, featuring core gameplay mechanics, and basic planetary terraforming.</p>
+    </div>
+  </div>
+
+  <div class="news-item">
+    <h2>Major Update</h2>
+    <p>Demo Release! [LEGACY]</p>
+    <button class="expand-btn" id="btn-demo" onclick="toggleContent('demo')">Read More</button>
+    <div class="hidden-content" id="demo">
+      <p>The demo release introduces a sneak peek at the game's features, including a small preview of the terraforming mechanics and early-stage gameplay...</p>
+    </div>
   </div>
 
   <a href="index.html" style="color:#00ffcc;">← Back to Home</a>
