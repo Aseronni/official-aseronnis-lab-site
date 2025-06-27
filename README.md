@@ -14,7 +14,7 @@ The goal of the site is to create a central hub for all things related to **Aser
 
 ## Features
 
-- **Terraformation Unknown**: A sci-fi game in development. Currently In Early Access and stay tuned for the **1.0 release** (LEGACY is the Turbowarp version, the new version will be made in unity and will be the normal version).
+- **Terraformation Unknown**: A sci-fi game in development. Currently In Early Access and stay tuned for updates! (LEGACY is the Turbowarp version, the new version will be made in unity and will be the normal version).
 - Contact: Reach out for feedback, or general inquiries.
 
 ## License
