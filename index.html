@@ -65,7 +65,7 @@
       border: none;
       padding: 1em 2em;
       font-size: 1em;
-      font-family: 'Orbitron', sans-serif; /* Ensuring Orbitron font for buttons */
+      font-family: 'Orbitron', sans-serif;
       border-radius: 0.75em;
       cursor: pointer;
       flex: 1;
@@ -81,20 +81,19 @@
       flex: 1;
     }
 
-    /* New styles for the rounded cubes */
     .game-container {
       display: flex;
       justify-content: center;
       align-items: center;
       gap: 20px;
       margin-bottom: 2em;
+      flex-wrap: wrap;
     }
 
     .game-box {
       background-color: #1a1a1a;
       padding: 1.5em;
       border-radius: 15px;
-      box-shadow: 0px 4px 10px rgba(0, 255, 204, 0.6);
       width: 200px;
       height: 200px;
       display: flex;
@@ -111,21 +110,34 @@
       transform: scale(1.05);
     }
 
+    /* Remove the old ::after text overlay */
     .game-box::after {
-      content: "Coming Soon...";
-      font-size: 1.5em;
-      color: #00ffcc;
-      opacity: 0.7;
+      content: "";
     }
 
-    /* Style for the Coming Soon button */
+    /* Unique glow colors */
+    #secret1 {
+      box-shadow: 0 0 20px 4px rgba(170, 0, 255, 0.7);
+    }
+
+    #secret2 {
+      box-shadow: 0 0 20px 4px rgba(255, 210, 100, 0.7);
+    }
+
+    #secret1 span,
+    #secret2 span {
+      color: #ccc;
+      font-size: 1.1em;
+      opacity: 0.8;
+    }
+
     .coming-soon-btn {
       background: #ff5c5c;
       color: #0d0d0d;
       border: none;
       padding: 1em 2em;
       font-size: 1em;
-      font-family: 'Orbitron', sans-serif; /* Orbitron font for the button */
+      font-family: 'Orbitron', sans-serif;
       border-radius: 0.75em;
       cursor: pointer;
       transition: background 0.3s ease;
@@ -141,16 +153,15 @@
 
   <h2>My Games:</h2>
 
-  <!-- Game Container with rounded cubes -->
+  <!-- Game Container -->
   <div class="game-container">
-    <!-- Left Cube (Secret Game Placeholder) -->
-    <div class="game-box" id="secret1"></div>
+    <!-- Left Cube (Purple Glow) -->
+    <div class="game-box" id="secret1"><span>Coming Soon...</span></div>
 
     <!-- Terraformation Unknown -->
     <div class="card">
       <h3>Terraformation Unknown</h3>
       <p>Early Access | Sci-fi | Simulation</p>
-
       <div class="buttons">
         <a href="https://aseronni.itch.io/terraformation-unknown-early-access-legacy" target="_blank">
           <button class="btn">Game Page [LEGACY]</button>
@@ -161,28 +172,24 @@
       </div>
     </div>
 
-    <!-- Right Cube (Secret Game Placeholder) -->
-    <div class="game-box" id="secret2"></div>
+    <!-- Right Cube (Sandy Glow) -->
+    <div class="game-box" id="secret2"><span>Coming Soon...</span></div>
   </div>
 
   <div class="buttons">
-    <!-- News Button -->
     <a href="https://aseronni.github.io/official-aseronnis-lab-site/news.html">
       <button class="btn">News</button>
     </a>
-
-    <!-- Discord Server Button -->
     <a href="https://discord.gg/qTaQy6mMcy">
       <button class="btn">Discord Server</button>
     </a>
   </div>
 
-  <!-- New Planetary Archive button at the bottom -->
+  <!-- Planetary Archive Button -->
   <div class="buttons" style="margin-top: 3em; max-width: 400px; margin-left: auto; margin-right: auto;">
     <a href="https://aseronni.github.io/Terracon-Planetary-Archive/" target="_blank">
       <button class="btn">Planetary Archive</button>
     </a>
   </div>
-
 </body>
 </html>
