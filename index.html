@@ -110,25 +110,12 @@
       transform: scale(1.05);
     }
 
-    /* Remove the old ::after text overlay */
-    .game-box::after {
-      content: "";
-    }
-
-    /* Unique glow colors */
     #secret1 {
       box-shadow: 0 0 20px 4px rgba(170, 0, 255, 0.7);
     }
 
     #secret2 {
       box-shadow: 0 0 20px 4px rgba(255, 210, 100, 0.7);
-    }
-
-    #secret1 span,
-    #secret2 span {
-      color: #ccc;
-      font-size: 1.1em;
-      opacity: 0.8;
     }
 
     .coming-soon-btn {
@@ -153,27 +140,23 @@
 
   <h2>My Games:</h2>
 
-  <!-- Game Container -->
   <div class="game-container">
-    <!-- Left Cube (Purple Glow) -->
-    <div class="game-box" id="secret1"><span>Coming Soon...</span></div>
+    <div class="game-box" id="secret1" onclick="swapGame('secret1')"><span>Coming Soon...</span></div>
 
-    <!-- Terraformation Unknown -->
-    <div class="card">
+    <div class="card" id="game-card">
       <h3>Terraformation Unknown</h3>
       <p>Early Access | Sci-fi | Simulation</p>
       <div class="buttons">
         <a href="https://aseronni.itch.io/terraformation-unknown-early-access-legacy" target="_blank">
           <button class="btn">Game Page [LEGACY]</button>
         </a>
-        <a href="">
+        <a href="#">
           <button class="btn">New Coming Soon...</button>
         </a>
       </div>
     </div>
 
-    <!-- Right Cube (Sandy Glow) -->
-    <div class="game-box" id="secret2"><span>Coming Soon...</span></div>
+    <div class="game-box" id="secret2" onclick="swapGame('secret2')"><span>Coming Soon...</span></div>
   </div>
 
   <div class="buttons">
@@ -185,11 +168,33 @@
     </a>
   </div>
 
-  <!-- Planetary Archive Button -->
   <div class="buttons" style="margin-top: 3em; max-width: 400px; margin-left: auto; margin-right: auto;">
     <a href="https://aseronni.github.io/Terracon-Planetary-Archive/" target="_blank">
       <button class="btn">Planetary Archive</button>
     </a>
   </div>
+
+  <script>
+    let activeGame = "terraformation";
+
+    function swapGame(secretId) {
+      const card = document.getElementById("game-card");
+      const box = document.getElementById(secretId);
+
+      if (activeGame === "terraformation") {
+        // Replace card with box content
+        card.innerHTML = `<h3>Coming Soon... With The Glow</h3><p>Unknown | ??? | ???</p><div class="buttons"><button class="coming-soon-btn" onclick="window.location.href='#'">Coming Soon</button></div>`;
+        activeGame = secretId;
+
+        box.innerHTML = `<span>Terraformation Unknown</span>`;
+      } else {
+        // Return Terraformation card
+        card.innerHTML = `<h3>Terraformation Unknown</h3><p>Early Access | Sci-fi | Simulation</p><div class="buttons"><a href="https://aseronni.itch.io/terraformation-unknown-early-access-legacy" target="_blank"><button class="btn">Game Page [LEGACY]</button></a><a href="#"><button class="btn">New Coming Soon...</button></a></div>`;
+
+        document.getElementById(activeGame).innerHTML = `<span>Coming Soon...</span>`;
+        activeGame = "terraformation";
+      }
+    }
+  </script>
 </body>
 </html>
