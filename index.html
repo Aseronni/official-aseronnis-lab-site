@@ -95,10 +95,10 @@
       font-size: 1.1em;
     }
 
-    /* Updated buttons container inside cards */
+    /* Buttons inside cards */
     .buttons {
       display: flex;
-      justify-content: space-between;  /* spread buttons out */
+      justify-content: space-between;
       gap: 10px;
       margin-top: auto;
       max-width: 320px; /* keeps buttons contained nicely */
@@ -110,33 +110,37 @@
       background: #00ffcc;
       color: #0d0d0d;
       border: none;
-      padding: 0.8em 1.5em;
+      padding: 0.9em 2em; /* bigger padding for longer buttons */
       font-size: 1em;
       font-family: 'Orbitron', sans-serif;
       border-radius: 0.75em;
       cursor: pointer;
       transition: background 0.3s ease;
       flex: 1;
-      max-width: 140px;
+      max-width: 180px; /* wider max width */
+      min-width: 140px; /* ensure buttons have a minimum width */
     }
 
     .btn:hover {
       background: #00cca5;
     }
 
-    /* Outer buttons groups remain centered but spaced */
+    /* Container for News + Discord buttons spaced wider */
     .outer-buttons {
       display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      max-width: 600px;
+      justify-content: space-around; /* more space around buttons */
+      gap: 40px;
+      max-width: 500px; /* narrower so buttons are more spaced */
       margin-left: auto;
       margin-right: auto;
+      margin-top: 2em;
     }
 
+    /* Container for Planetary Archive centered at bottom */
     .outer-buttons.small {
-      max-width: 400px;
-      margin-top: 3em;
+      max-width: 200px;
+      margin: 3em auto 0 auto;
+      justify-content: center;
     }
   </style>
 </head>
