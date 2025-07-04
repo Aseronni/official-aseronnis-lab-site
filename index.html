@@ -8,10 +8,11 @@
   <style>
     body {
       font-family: 'Orbitron', sans-serif;
-      background: #0d0d0d;
-      color: #00ffcc;
+      background: #0d0d0d; /* default dark */
+      color: #00ffcc; /* default greenish-blue */
       text-align: center;
       padding: 2em;
+      transition: background 0.5s ease, color 0.5s ease;
     }
 
     h1 {
@@ -30,23 +31,32 @@
     }
 
     .card {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid #00ffcc33;
       border-radius: 1em;
       padding: 2em;
       max-width: 600px;
       margin: 1em auto 3em;
-      box-shadow: 0 0 20px #00ffcc33;
       position: relative;
+      color: white;
+      transition: background 0.5s ease, box-shadow 0.5s ease;
     }
 
-    .card h3 {
-      margin-bottom: 0.5em;
+    /* Terraformation Unknown card default style: greenish-blue */
+    #game-card.terraformation {
+      background: #0f4c5c;
+      box-shadow: 0 0 30px 5px #0fffcf;
     }
 
-    .card p {
-      margin-top: 0;
-      margin-bottom: 1.5em;
+    /* Coming Soon card style: purple */
+    #game-card.coming-soon {
+      background: #4b0082;
+      box-shadow: 0 0 30px 5px #aa00ff;
+    }
+
+    /* Another card style (if needed) */
+    #game-card.sandy {
+      background: #d2b48c;
+      box-shadow: 0 0 30px 5px #ffd700;
+      color: #3e2f1c;
     }
 
     .buttons {
@@ -90,8 +100,10 @@
       flex-wrap: wrap;
     }
 
-    .game-box {
-      background-color: #1a1a1a;
+    /* Left box: purple color */
+    #secret1 {
+      background-color: #4b0082;
+      color: white;
       padding: 1.5em;
       border-radius: 15px;
       width: 200px;
@@ -99,25 +111,39 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      color: white;
       text-align: center;
       font-size: 1.2em;
       cursor: pointer;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       user-select: none;
-    }
-
-    .game-box:hover {
-      transform: scale(1.05);
-    }
-
-    /* Glow classes moved here for toggling */
-    .glow-purple {
       box-shadow: 0 0 20px 4px rgba(170, 0, 255, 0.7);
     }
+    #secret1:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 30px 6px rgba(200, 50, 255, 0.9);
+    }
 
-    .glow-yellow {
+    /* Right box: sandy color */
+    #secret2 {
+      background-color: #d2b48c;
+      color: #3e2f1c;
+      padding: 1.5em;
+      border-radius: 15px;
+      width: 200px;
+      height: 200px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      font-size: 1.2em;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      user-select: none;
       box-shadow: 0 0 20px 4px rgba(255, 210, 100, 0.7);
+    }
+    #secret2:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 30px 6px rgba(255, 220, 120, 1);
     }
 
     .coming-soon-btn {
@@ -129,7 +155,6 @@
       font-family: 'Orbitron', sans-serif;
       border-radius: 0.75em;
       cursor: pointer;
-      transition: background 0.3s ease;
       /* Center the button */
       display: block;
       margin: 0 auto;
@@ -149,9 +174,9 @@
   <h2>My Games:</h2>
 
   <div class="game-container">
-    <div class="game-box glow-purple" id="secret1" onclick="swapGame('secret1')"><span>Coming Soon...</span></div>
+    <div class="game-box" id="secret1" onclick="swapGame('secret1')"><span>Coming Soon...</span></div>
 
-    <div class="card" id="game-card">
+    <div class="card terraformation" id="game-card">
       <h3>Terraformation Unknown</h3>
       <p>Early Access | Sci-fi | Simulation</p>
       <div class="buttons">
@@ -183,101 +208,91 @@
   </div>
 
   <script>
-let activeGame = "terraformation";
+    let activeGame = "terraformation";
 
-function swapGame(secretId) {
-  const card = document.getElementById("game-card");
-  const box1 = document.getElementById("secret1");
-  const box2 = document.getElementById("secret2");
-  const selectedBox = document.getElementById(secretId);
+    function swapGame(secretId) {
+      const card = document.getElementById("game-card");
+      const box1 = document.getElementById("secret1");
+      const box2 = document.getElementById("secret2");
 
-  // Determine the glow class currently on the center card
-  // We'll store it on a data attribute to persist between swaps
-  // Or check if it has any glow classes manually
-  const glowClasses = ["glow-purple", "glow-yellow"];
+      if (secretId === "secret1") {
+        // Left box clicked (purple, "Coming Soon")
+        if (activeGame !== "comingSoon") {
+          // Show "Coming Soon" card content
+          card.className = "card coming-soon";
+          card.innerHTML = `
+            <h3>Coming Soon... With The Glow</h3>
+            <p>Unknown | ??? | ???</p>
+            <div class="buttons">
+              <button class="coming-soon-btn" onclick="window.location.href='#'">Coming Soon</button>
+            </div>
+          `;
+          // Update box text and cursor
+          box1.innerHTML = `<span>Terraformation Unknown</span>`;
+          box1.style.cursor = "default";
 
-  // Helper: find which glow class the card currently has (or null)
-  function getGlowClass(element) {
-    return glowClasses.find(glow => element.classList.contains(glow)) || null;
-  }
+          box2.innerHTML = `<span>Coming Soon...</span>`;
+          box2.style.cursor = "pointer";
 
-  // For first load, center card doesn't have glow, assign default
-  if (!card.dataset.glow) {
-    card.dataset.glow = "glow-purple";
-    card.classList.add("glow-purple");
-  }
+          // Change whole page colors for purple theme
+          document.body.style.background = "#220044";
+          document.body.style.color = "#d0aaff";
 
-  // If the clicked card has no glow, assign it default glow to swap
-  if (!selectedBox.dataset.glow) {
-    // Assign the opposite glow from center to selected box for swapping purpose
-    // This logic depends on your setup. For now, assign glow-yellow to secret2 and glow-purple to secret1 if missing
-    selectedBox.dataset.glow = (selectedBox.id === "secret1") ? "glow-purple" : "glow-yellow";
-    selectedBox.classList.add(selectedBox.dataset.glow);
-  }
+          activeGame = "comingSoon";
+        }
+      } else if (secretId === "secret2") {
+        // Right box clicked (sandy)
+        if (activeGame !== "sandy") {
+          card.className = "card sandy";
+          card.innerHTML = `
+            <h3>Sandy Game Placeholder</h3>
+            <p>Coming Soon | Adventure | Exploration</p>
+            <div class="buttons">
+              <button class="coming-soon-btn" onclick="window.location.href='#'">Coming Soon</button>
+            </div>
+          `;
+          // Update box text and cursor
+          box2.innerHTML = `<span>Terraformation Unknown</span>`;
+          box2.style.cursor = "default";
 
-  // Get current glows
-  const centerGlow = card.dataset.glow;
-  const clickedGlow = selectedBox.dataset.glow;
+          box1.innerHTML = `<span>Coming Soon...</span>`;
+          box1.style.cursor = "pointer";
 
-  // Swap the glow classes visually on elements
-  card.classList.remove(centerGlow);
-  card.classList.add(clickedGlow);
-  card.dataset.glow = clickedGlow;
+          // Change whole page colors for sandy theme
+          document.body.style.background = "#5a3e1b";
+          document.body.style.color = "#f0e4c2";
 
-  selectedBox.classList.remove(clickedGlow);
-  selectedBox.classList.add(centerGlow);
-  selectedBox.dataset.glow = centerGlow;
+          activeGame = "sandy";
+        }
+      } else if (activeGame !== "terraformation") {
+        // Return to Terraformation Unknown (center card) by clicking center or toggling
+        card.className = "card terraformation";
+        card.innerHTML = `
+          <h3>Terraformation Unknown</h3>
+          <p>Early Access | Sci-fi | Simulation</p>
+          <div class="buttons">
+            <a href="https://aseronni.itch.io/terraformation-unknown-early-access-legacy" target="_blank">
+              <button class="btn">Game Page [LEGACY]</button>
+            </a>
+            <a href="#">
+              <button class="btn">New Coming Soon...</button>
+            </a>
+          </div>
+        `;
 
-  // Swap the card content according to which card clicked
-  if (activeGame === "terraformation") {
-    // Show Coming Soon card content
-    card.innerHTML = `
-      <h3>Coming Soon... With The Glow</h3>
-      <p>Unknown | ??? | ???</p>
-      <div class="buttons">
-        <button class="coming-soon-btn" onclick="window.location.href='#'">Coming Soon</button>
-      </div>
-    `;
-    activeGame = secretId;
+        box1.innerHTML = `<span>Coming Soon...</span>`;
+        box1.style.cursor = "pointer";
 
-    // Update box content for clicked and other box
-    if (secretId === "secret1") {
-      box1.innerHTML = `<span>Terraformation Unknown</span>`;
-      box2.innerHTML = `<span>Coming Soon...</span>`;
-      box1.style.cursor = "default";
-      box2.style.cursor = "pointer";
-    } else {
-      box2.innerHTML = `<span>Terraformation Unknown</span>`;
-      box1.innerHTML = `<span>Coming Soon...</span>`;
-      box2.style.cursor = "default";
-      box1.style.cursor = "pointer";
+        box2.innerHTML = `<span>Coming Soon...</span>`;
+        box2.style.cursor = "pointer";
+
+        // Reset page colors to greenish-blue default
+        document.body.style.background = "#0d0d0d";
+        document.body.style.color = "#00ffcc";
+
+        activeGame = "terraformation";
+      }
     }
-
-  } else {
-    // Return to Terraformation Unknown card content
-    card.innerHTML = `
-      <h3>Terraformation Unknown</h3>
-      <p>Early Access | Sci-fi | Simulation</p>
-      <div class="buttons">
-        <a href="https://aseronni.itch.io/terraformation-unknown-early-access-legacy" target="_blank">
-          <button class="btn">Game Page [LEGACY]</button>
-        </a>
-        <a href="#">
-          <button class="btn">New Coming Soon...</button>
-        </a>
-      </div>
-    `;
-
-    // Reset box contents and cursors
-    box1.innerHTML = `<span>Coming Soon...</span>`;
-    box2.innerHTML = `<span>Coming Soon...</span>`;
-
-    box1.style.cursor = "pointer";
-    box2.style.cursor = "pointer";
-
-    activeGame = "terraformation";
-  }
-}
   </script>
 </body>
 </html>
