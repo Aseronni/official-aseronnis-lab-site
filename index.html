@@ -32,16 +32,15 @@
       align-items: stretch;
       gap: 20px;
       margin-bottom: 3em;
-      flex-wrap: nowrap;
-      max-width: 960px;
+      flex-wrap: wrap; /* allow wrapping */
       margin-left: auto;
       margin-right: auto;
+      /* no max-width, so it can grow */
     }
 
     .card {
       border-radius: 1em;
       padding: 2em;
-      width: 550px;
       box-sizing: border-box;
       color: white;
       display: flex;
@@ -51,6 +50,10 @@
       transition: box-shadow 0.3s ease;
       cursor: default;
       user-select: none;
+
+      flex: 1 1 350px;   /* flexible: grow & shrink, base 350px */
+      max-width: 600px;  /* max width for nice scaling */
+      min-width: 300px;  /* optional min width */
     }
 
     .card:hover {
@@ -132,14 +135,14 @@
       </div>
     </div>
 
-  <div class="card terraformation">
-    <h3>Terraformation Unknown EARLY ACCESS</h3>
-    <p>Incremental | Sci-fi | Simulation</p>
-    <div class="buttons">
-      <button class="btn" onclick="event.stopPropagation(); window.open('https://aseronni.itch.io/terraformation-unknown-early-access-legacy', '_blank')">Game Page [LEGACY]</button>
-      <button class="btn" disabled">Unity Remake Coming Soon</button>
+    <div class="card terraformation">
+      <h3>Terraformation Unknown EARLY ACCESS</h3>
+      <p>Incremental | Sci-fi | Simulation</p>
+      <div class="buttons">
+        <button class="btn" onclick="event.stopPropagation(); window.open('https://aseronni.itch.io/terraformation-unknown-early-access-legacy', '_blank')">Game Page [LEGACY]</button>
+        <button class="btn" disabled>Unity Remake Coming Soon</button>
+      </div>
     </div>
-  </div>
 
     <div class="card coming-soon-right">
       <h3>T3c8N10Ca</h3>
