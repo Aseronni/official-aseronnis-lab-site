@@ -110,10 +110,12 @@
       transform: scale(1.05);
     }
 
+    /* Remove the old ::after text overlay */
     .game-box::after {
       content: "";
     }
 
+    /* Unique glow colors */
     #secret1 {
       box-shadow: 0 0 20px 4px rgba(170, 0, 255, 0.7);
     }
@@ -148,44 +150,44 @@
 </head>
 <body>
   <h1>Aseronni's Lab</h1>
+
   <h2>My Games:</h2>
 
   <!-- Game Container -->
   <div class="game-container">
     <!-- Left Cube (Purple Glow) -->
-    <div class="game-box" id="secret1" aria-label="Coming Soon Feature"><span>Coming Soon...</span></div>
+    <div class="game-box" id="secret1"><span>Coming Soon...</span></div>
 
-    <!-- Terraformation Unknown Card -->
+    <!-- Terraformation Unknown -->
     <div class="card">
       <h3>Terraformation Unknown</h3>
       <p>Early Access | Sci-fi | Simulation</p>
       <div class="buttons">
-        <a href="https://aseronni.itch.io/terraformation-unknown-early-access-legacy" target="_blank" aria-label="Legacy Game Page">
+        <a href="https://aseronni.itch.io/terraformation-unknown-early-access-legacy" target="_blank">
           <button class="btn">Game Page [LEGACY]</button>
         </a>
-        <a href="#" aria-label="New version coming soon">
-          <button class="btn" disabled>New Coming Soon...</button>
+        <a href="">
+          <button class="btn">New Coming Soon...</button>
         </a>
       </div>
     </div>
 
     <!-- Right Cube (Sandy Glow) -->
-    <div class="game-box" id="secret2" aria-label="Coming Soon Feature"><span>Coming Soon...</span></div>
+    <div class="game-box" id="secret2"><span>Coming Soon...</span></div>
   </div>
 
-  <!-- Footer Buttons -->
   <div class="buttons">
-    <a href="https://aseronni.github.io/official-aseronnis-lab-site/news.html" aria-label="News Page">
+    <a href="https://aseronni.github.io/official-aseronnis-lab-site/news.html">
       <button class="btn">News</button>
     </a>
-    <a href="https://discord.gg/qTaQy6mMcy" aria-label="Join Discord Server">
+    <a href="https://discord.gg/qTaQy6mMcy">
       <button class="btn">Discord Server</button>
     </a>
   </div>
 
   <!-- Planetary Archive Button -->
   <div class="buttons" style="margin-top: 3em; max-width: 400px; margin-left: auto; margin-right: auto;">
-    <a href="https://aseronni.github.io/Terracon-Planetary-Archive/" target="_blank" aria-label="View Planetary Archive">
+    <a href="https://aseronni.github.io/Terracon-Planetary-Archive/" target="_blank">
       <button class="btn">Planetary Archive</button>
     </a>
   </div>
