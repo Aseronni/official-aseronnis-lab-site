@@ -176,7 +176,7 @@
   <div class="game-container">
     <div class="game-box" id="secret1" onclick="swapGame('secret1')"><span>Coming Soon...</span></div>
 
-    <div class="card terraformation" id="game-card">
+    <div class="card terraformation" id="game-card" onclick="swapGame('terraformation')">
       <h3>Terraformation Unknown</h3>
       <p>Early Access | Sci-fi | Simulation</p>
       <div class="buttons">
@@ -208,91 +208,87 @@
   </div>
 
   <script>
-    let activeGame = "terraformation";
+let activeGame = "terraformation";
 
-    function swapGame(secretId) {
-      const card = document.getElementById("game-card");
-      const box1 = document.getElementById("secret1");
-      const box2 = document.getElementById("secret2");
+function swapGame(secretId) {
+  const card = document.getElementById("game-card");
+  const box1 = document.getElementById("secret1");
+  const box2 = document.getElementById("secret2");
 
-      if (secretId === "secret1") {
-        // Left box clicked (purple, "Coming Soon")
-        if (activeGame !== "comingSoon") {
-          // Show "Coming Soon" card content
-          card.className = "card coming-soon";
-          card.innerHTML = `
-            <h3>Coming Soon... With The Glow</h3>
-            <p>Unknown | ??? | ???</p>
-            <div class="buttons">
-              <button class="coming-soon-btn" onclick="window.location.href='#'">Coming Soon</button>
-            </div>
-          `;
-          // Update box text and cursor
-          box1.innerHTML = `<span>Terraformation Unknown</span>`;
-          box1.style.cursor = "default";
+  if (secretId === "secret1") {
+    // Left box clicked (purple, "Coming Soon")
+    if (activeGame !== "comingSoon") {
+      card.className = "card coming-soon";
+      card.innerHTML = `
+        <h3>Coming Soon... With The Glow</h3>
+        <p>Unknown | ??? | ???</p>
+        <div class="buttons">
+          <button class="coming-soon-btn" onclick="window.location.href='#'">Coming Soon</button>
+        </div>
+      `;
+      box1.innerHTML = `<span>Terraformation Unknown</span>`;
+      box1.style.cursor = "default";
 
-          box2.innerHTML = `<span>Coming Soon...</span>`;
-          box2.style.cursor = "pointer";
+      box2.innerHTML = `<span>Coming Soon...</span>`;
+      box2.style.cursor = "pointer";
 
-          // Change whole page colors for purple theme
-          document.body.style.background = "#220044";
-          document.body.style.color = "#d0aaff";
+      document.body.style.background = "#220044";
+      document.body.style.color = "#d0aaff";
 
-          activeGame = "comingSoon";
-        }
-      } else if (secretId === "secret2") {
-        // Right box clicked (sandy)
-        if (activeGame !== "sandy") {
-          card.className = "card sandy";
-          card.innerHTML = `
-            <h3>Sandy Game Placeholder</h3>
-            <p>Coming Soon | Adventure | Exploration</p>
-            <div class="buttons">
-              <button class="coming-soon-btn" onclick="window.location.href='#'">Coming Soon</button>
-            </div>
-          `;
-          // Update box text and cursor
-          box2.innerHTML = `<span>Terraformation Unknown</span>`;
-          box2.style.cursor = "default";
-
-          box1.innerHTML = `<span>Coming Soon...</span>`;
-          box1.style.cursor = "pointer";
-
-          // Change whole page colors for sandy theme
-          document.body.style.background = "#5a3e1b";
-          document.body.style.color = "#f0e4c2";
-
-          activeGame = "sandy";
-        }
-      } else if (activeGame !== "terraformation") {
-        // Return to Terraformation Unknown (center card) by clicking center or toggling
-        card.className = "card terraformation";
-        card.innerHTML = `
-          <h3>Terraformation Unknown</h3>
-          <p>Early Access | Sci-fi | Simulation</p>
-          <div class="buttons">
-            <a href="https://aseronni.itch.io/terraformation-unknown-early-access-legacy" target="_blank">
-              <button class="btn">Game Page [LEGACY]</button>
-            </a>
-            <a href="#">
-              <button class="btn">New Coming Soon...</button>
-            </a>
-          </div>
-        `;
-
-        box1.innerHTML = `<span>Coming Soon...</span>`;
-        box1.style.cursor = "pointer";
-
-        box2.innerHTML = `<span>Coming Soon...</span>`;
-        box2.style.cursor = "pointer";
-
-        // Reset page colors to greenish-blue default
-        document.body.style.background = "#0d0d0d";
-        document.body.style.color = "#00ffcc";
-
-        activeGame = "terraformation";
-      }
+      activeGame = "comingSoon";
     }
+  } else if (secretId === "secret2") {
+    // Right box clicked (sandy)
+    if (activeGame !== "sandy") {
+      card.className = "card sandy";
+      card.innerHTML = `
+        <h3>Sandy Game Placeholder</h3>
+        <p>Coming Soon | Adventure | Exploration</p>
+        <div class="buttons">
+          <button class="coming-soon-btn" onclick="window.location.href='#'">Coming Soon</button>
+        </div>
+      `;
+      box2.innerHTML = `<span>Terraformation Unknown</span>`;
+      box2.style.cursor = "default";
+
+      box1.innerHTML = `<span>Coming Soon...</span>`;
+      box1.style.cursor = "pointer";
+
+      document.body.style.background = "#5a3e1b";
+      document.body.style.color = "#f0e4c2";
+
+      activeGame = "sandy";
+    }
+  } else if (secretId === "terraformation") {
+    // Return to Terraformation Unknown
+    if (activeGame !== "terraformation") {
+      card.className = "card terraformation";
+      card.innerHTML = `
+        <h3>Terraformation Unknown</h3>
+        <p>Early Access | Sci-fi | Simulation</p>
+        <div class="buttons">
+          <a href="https://aseronni.itch.io/terraformation-unknown-early-access-legacy" target="_blank">
+            <button class="btn">Game Page [LEGACY]</button>
+          </a>
+          <a href="#">
+            <button class="btn">New Coming Soon...</button>
+          </a>
+        </div>
+      `;
+
+      box1.innerHTML = `<span>Coming Soon...</span>`;
+      box1.style.cursor = "pointer";
+
+      box2.innerHTML = `<span>Coming Soon...</span>`;
+      box2.style.cursor = "pointer";
+
+      document.body.style.background = "#0d0d0d";
+      document.body.style.color = "#00ffcc";
+
+      activeGame = "terraformation";
+    }
+  }
+}
   </script>
 </body>
 </html>
