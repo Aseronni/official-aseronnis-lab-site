@@ -183,68 +183,101 @@
   </div>
 
   <script>
-    let activeGame = "terraformation";
+let activeGame = "terraformation";
 
-    function swapGame(secretId) {
-      const card = document.getElementById("game-card");
-      const box1 = document.getElementById("secret1");
-      const box2 = document.getElementById("secret2");
-      const selectedBox = document.getElementById(secretId);
+function swapGame(secretId) {
+  const card = document.getElementById("game-card");
+  const box1 = document.getElementById("secret1");
+  const box2 = document.getElementById("secret2");
+  const selectedBox = document.getElementById(secretId);
 
-      if (activeGame === "terraformation") {
-        // Swap to Coming Soon card
-        card.innerHTML = `
-          <h3>Coming Soon... With The Glow</h3>
-          <p>Unknown | ??? | ???</p>
-          <div class="buttons">
-            <button class="coming-soon-btn" onclick="window.location.href='#'">Coming Soon</button>
-          </div>
-        `;
-        activeGame = secretId;
+  // Determine the glow class currently on the center card
+  // We'll store it on a data attribute to persist between swaps
+  // Or check if it has any glow classes manually
+  const glowClasses = ["glow-purple", "glow-yellow"];
 
-        // Update boxes content
-        if (secretId === "secret1") {
-          box1.innerHTML = `<span>Terraformation Unknown</span>`;
-          box1.classList.add("glow-purple");
-          box2.classList.remove("glow-yellow");
-          box2.innerHTML = `<span>Coming Soon...</span>`;
-          box1.style.cursor = "default";
-          box2.style.cursor = "pointer";
-        } else {
-          box2.innerHTML = `<span>Terraformation Unknown</span>`;
-          box2.classList.add("glow-yellow");
-          box1.classList.remove("glow-purple");
-          box1.innerHTML = `<span>Coming Soon...</span>`;
-          box2.style.cursor = "default";
-          box1.style.cursor = "pointer";
-        }
-      } else {
-        // Return to Terraformation Unknown card
-        card.innerHTML = `
-          <h3>Terraformation Unknown</h3>
-          <p>Early Access | Sci-fi | Simulation</p>
-          <div class="buttons">
-            <a href="https://aseronni.itch.io/terraformation-unknown-early-access-legacy" target="_blank">
-              <button class="btn">Game Page [LEGACY]</button>
-            </a>
-            <a href="#">
-              <button class="btn">New Coming Soon...</button>
-            </a>
-          </div>
-        `;
-        // Reset boxes content and glow
-        box1.innerHTML = `<span>Coming Soon...</span>`;
-        box2.innerHTML = `<span>Coming Soon...</span>`;
+  // Helper: find which glow class the card currently has (or null)
+  function getGlowClass(element) {
+    return glowClasses.find(glow => element.classList.contains(glow)) || null;
+  }
 
-        box1.classList.add("glow-purple");
-        box1.style.cursor = "pointer";
+  // For first load, center card doesn't have glow, assign default
+  if (!card.dataset.glow) {
+    card.dataset.glow = "glow-purple";
+    card.classList.add("glow-purple");
+  }
 
-        box2.classList.remove("glow-yellow");
-        box2.style.cursor = "pointer";
+  // If the clicked card has no glow, assign it default glow to swap
+  if (!selectedBox.dataset.glow) {
+    // Assign the opposite glow from center to selected box for swapping purpose
+    // This logic depends on your setup. For now, assign glow-yellow to secret2 and glow-purple to secret1 if missing
+    selectedBox.dataset.glow = (selectedBox.id === "secret1") ? "glow-purple" : "glow-yellow";
+    selectedBox.classList.add(selectedBox.dataset.glow);
+  }
 
-        activeGame = "terraformation";
-      }
+  // Get current glows
+  const centerGlow = card.dataset.glow;
+  const clickedGlow = selectedBox.dataset.glow;
+
+  // Swap the glow classes visually on elements
+  card.classList.remove(centerGlow);
+  card.classList.add(clickedGlow);
+  card.dataset.glow = clickedGlow;
+
+  selectedBox.classList.remove(clickedGlow);
+  selectedBox.classList.add(centerGlow);
+  selectedBox.dataset.glow = centerGlow;
+
+  // Swap the card content according to which card clicked
+  if (activeGame === "terraformation") {
+    // Show Coming Soon card content
+    card.innerHTML = `
+      <h3>Coming Soon... With The Glow</h3>
+      <p>Unknown | ??? | ???</p>
+      <div class="buttons">
+        <button class="coming-soon-btn" onclick="window.location.href='#'">Coming Soon</button>
+      </div>
+    `;
+    activeGame = secretId;
+
+    // Update box content for clicked and other box
+    if (secretId === "secret1") {
+      box1.innerHTML = `<span>Terraformation Unknown</span>`;
+      box2.innerHTML = `<span>Coming Soon...</span>`;
+      box1.style.cursor = "default";
+      box2.style.cursor = "pointer";
+    } else {
+      box2.innerHTML = `<span>Terraformation Unknown</span>`;
+      box1.innerHTML = `<span>Coming Soon...</span>`;
+      box2.style.cursor = "default";
+      box1.style.cursor = "pointer";
     }
+
+  } else {
+    // Return to Terraformation Unknown card content
+    card.innerHTML = `
+      <h3>Terraformation Unknown</h3>
+      <p>Early Access | Sci-fi | Simulation</p>
+      <div class="buttons">
+        <a href="https://aseronni.itch.io/terraformation-unknown-early-access-legacy" target="_blank">
+          <button class="btn">Game Page [LEGACY]</button>
+        </a>
+        <a href="#">
+          <button class="btn">New Coming Soon...</button>
+        </a>
+      </div>
+    `;
+
+    // Reset box contents and cursors
+    box1.innerHTML = `<span>Coming Soon...</span>`;
+    box2.innerHTML = `<span>Coming Soon...</span>`;
+
+    box1.style.cursor = "pointer";
+    box2.style.cursor = "pointer";
+
+    activeGame = "terraformation";
+  }
+}
   </script>
 </body>
 </html>
