@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Aserezonni's Lab</title>
+        <meta name="description" content="My personal game library">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+        <link rel="icon" type="image/png" href="Xerithon Terra Complete.PNG">
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                background: linear-gradient(135deg, #1a222e 0%, #33163e 100%);
+                color: #cccccc;
+                font-family: 'Orbitron', sans-serif;
+                min-height: 100vh;
+            }
+
+            header {
+                background: rgba(0, 0, 0, 0.7);
+                padding: 20px 0;
+                border-bottom: 3px solid #23532d;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            }
+
+            .header-content {
+                max-width: 1400px;
+                margin: 0 auto;
+                padding: 0 20px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            nav {
+                display: flex;
+                gap: 0;
+            }
+
+            nav a {
+                color: #cccccc;
+                text-decoration: none;
+                padding: 20px 20px;
+                border-bottom: 3px solid transparent;
+                transition: all 0.3s ease;
+                font-weight: 700;
+                text-transform: uppercase;
+                cursor: pointer;
+                font-size: 13px;
+            }
+
+            nav a:hover {
+                color: #1ff270;
+                border-bottom-color: #1ff27e;
+            }
+
+            nav a.active {
+                color: #1ff27e;
+                border-bottom-color: #1ff270;
+            }
+
+            .logo {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                font-size: 28px;
+                font-weight: bold;
+                color: #f6caff;
+                text-shadow: 0 0 10px rgba(55, 0, 143, 0.5);
+            }
+
+            .logo-icon {
+                height: 50px;
+                width: 50px;
+                object-fit: contain;
+            }
+
+            .user-info {
+                color: #999;
+                font-size: 14px;
+            }
+
+            main {
+                max-width: 1400px;
+                margin: 40px auto;
+                padding: 0 20px;
+            }
+
+            .section-title {
+                font-size: 24px;
+                margin-bottom: 25px;
+                color: #ffffff;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                border-bottom: 2px solid #14a74c;
+                padding-bottom: 10px;
+            }
+
+            .games-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+                gap: 25px;
+                margin-bottom: 50px;
+            }
+
+            .game-card {
+                background: rgba(0, 0, 0, 0.8);
+                border-radius: 20px;
+                overflow: hidden;
+                transition: all 0.3s ease;
+                border: 5px solid rgba(0, 0, 0, 0.3);
+                cursor: pointer;
+            }
+
+            .game-card:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+                border-color: #26cf6c;
+            }
+
+            .game-thumbnail {
+                width: 100%;
+                height: 280px;
+                background: linear-gradient(135deg, #081c38, #0f3460);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 48px;
+                font-weight: bold;
+                color: rgba(255, 255, 255, 0.2);
+                overflow: hidden;
+                position: relative;
+            }
+
+            .game-thumbnail img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            .game-info {
+                padding: 15px;
+            }
+
+            .game-title {
+                font-size: 18px;
+                font-weight: bold;
+                color: #ffffff;
+                margin-bottom: 8px;
+            }
+
+            .game-genre {
+                color: #1ff277;
+                font-size: 12px;
+                text-transform: uppercase;
+                margin-bottom: 10px;
+            }
+
+            .game-description {
+                color: #999;
+                font-size: 13px;
+                line-height: 1.4;
+                margin-bottom: 15px;
+            }
+
+            .game-footer {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding-top: 10px;
+                border-top: 1px solid rgba(31, 119, 242, 0.2);
+            }
+
+            .play-button {
+                background: #049c76;
+                color: rgb(0, 0, 0);
+                border: none;
+                padding: 10px 20px;
+                border-radius: 50px;
+                cursor: pointer;
+                font-weight: bold;
+                transition: all 0.2s ease;
+            }
+
+            .play-button:hover {
+                background: #09f7bb;
+                box-shadow: 0 0 10px rgba(31, 119, 242, 0.5);
+            }
+
+            .game-hours {
+                color: #999;
+                font-size: 12px;
+            }
+
+            footer {
+                text-align: center;
+                padding: 30px 20px;
+                color: #666;
+                margin-top: 50px;
+            }
+
+            .library-stats {
+                display: flex;
+                gap: 30px;
+                margin-bottom: 40px;
+                flex-wrap: wrap;
+            }
+
+            .stat-box {
+                background: rgba(20, 50, 30, 0.6);
+                padding: 20px 30px;
+                border-radius: 4px;
+                border-left: 4px solid #1ff265;
+            }
+
+            .stat-number {
+                font-size: 32px;
+                font-weight: bold;
+                color: #1ff231;
+            }
+
+            .stat-label {
+                color: #999;
+                font-size: 13px;
+                margin-top: 5px;
+            }
+
+            .page {
+                display: none;
+            }
+
+            .page.active {
+                display: block;
+            }
+
+            .about-content {
+                background: rgba(5, 2, 10, 0.6);
+                padding: 40px;
+                border-radius: 8px;
+                border-left: 4px solid #ff4e4e;
+                max-width: 900px;
+                margin: 0 auto;
+            }
+
+            .about-content h2 {
+                color: #1ff288;
+                margin-top: 30px;
+                margin-bottom: 15px;
+                font-size: 20px;
+            }
+
+            .about-content p {
+                line-height: 1.6;
+                color: #cccccc;
+                margin-bottom: 15px;
+            }
+
+            .about-content ul {
+                margin-left: 20px;
+                color: #cccccc;
+                line-height: 1.8;
+            }
+
+            .about-content li {
+                margin-bottom: 10px;
+            }
+
+            .roadmap-container {
+                max-width: 900px;
+                margin: 0 auto;
+            }
+
+            .roadmap-item {
+                background: rgba(5, 5, 5, 0.6);
+                border-left: 4px solid #1ff27e;
+                padding: 25px;
+                margin-bottom: 25px;
+                border-radius: 4px;
+                transition: all 0.3s ease;
+            }
+
+            .roadmap-item:hover {
+                background: rgba(22, 22, 22, 0.9);
+                box-shadow: 0 10px 25px rgba(242, 31, 242, 0.2);
+            }
+
+            .roadmap-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 15px;
+                padding-bottom: 15px;
+                border-bottom: 1px solid rgba(31, 242, 112, 0.3);
+            }
+
+            .roadmap-title {
+                font-size: 20px;
+                font-weight: bold;
+                color: #e74b4b;
+            }
+
+            .roadmap-status {
+                background: rgba(250, 93, 72, 0.2);
+                color: #f34d4d;
+                padding: 5px 12px;
+                border-radius: 12px;
+                font-size: 12px;
+                font-weight: bold;
+                text-transform: uppercase;
+            }
+
+            .roadmap-game-title {
+                color: #ffffff;
+                font-size: 16px;
+                font-weight: bold;
+                margin-bottom: 8px;
+            }
+
+            .roadmap-game-desc {
+                color: #c5c5c5;
+                font-size: 13px;
+                line-height: 1.5;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="header-content">
+                <div class="logo">
+                    <img src="Xerithon Terra Complete.PNG" alt="Aserezonni's Lab" class="logo-icon">
+                    <span>ASEREZONNI'S LAB</span>
+                </div>
+                <nav>
+                    <a class="nav-link active" onclick="showPage('library')">MY GAMES</a>
+                    <a class="nav-link" onclick="showPage('store')">ROADMAP</a>
+                    <a class="nav-link" onclick="showPage('about')">ABOUT ME</a>
+                </nav>
+            </div>
+        </header>
+
+        <main>
+            <!-- MY GAMES PAGE -->
+            <div id="library" class="page active">
+                <h1 class="section-title">MY GAMES</h1>
+
+                <div class="games-grid">
+                    <!-- Game Card -->
+                    <div class="game-card">
+                        <div class="game-thumbnail">
+                            <img src="IMG_0254.png" alt="Terraformation Unknown">
+                        </div>
+                        <div class="game-info">
+                            <div class="game-title">Terraformation Unknown Early Access</div>
+                            <div class="game-genre">Sci-Fi • Survival • 2.5D</div>
+                            <div class="game-description">A space game about terraforming a planet... or so it was?</div>
+                            <div class="game-footer">
+                            <div class="game-hours">In-Development</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ROADMAP PAGE -->
+            <div id="store" class="page">
+                <h1 class="section-title">ROADMAP</h1>
+                <p style="text-align: center; color: #999; margin-bottom: 40px; font-size: 14px;">Upcoming releases and development plans</p>
+
+                <div class="roadmap-container">
+                    <div class="roadmap-item">
+                        <div class="roadmap-header">
+                            <div class="roadmap-title">Q2 2026</div>
+                            <div class="roadmap-status">In Development</div>
+                        </div>
+                        <div class="roadmap-game">
+                            <div class="roadmap-game-title">Terraformation Unknown CLOSED BETA</div>
+                            <div class="roadmap-game-desc">CLOSED BETA For Terraformation Unknown Unity Version.</div>
+                        </div>
+                    </div>
+
+                    <div class="roadmap-item">
+                        <div class="roadmap-header">
+                            <div class="roadmap-title">Q3 2026</div>
+                            <div class="roadmap-status">Planned</div>
+                        </div>
+                        <div class="roadmap-game">
+                            <div class="roadmap-game-title">Terraformation Unkown Early Acess Launch</div>
+                            <div class="roadmap-game-desc">Launch For Early Access</div>
+                        </div>
+                    </div>
+
+                    <div class="roadmap-item">
+                        <div class="roadmap-header">
+                            <div class="roadmap-title">2026+</div>
+                            <div class="roadmap-status">Conceptual</div>
+                        </div>
+                        <div class="roadmap-game">
+                            <div class="roadmap-game-title">Terraformation Unkown 0.2 - 1.0</div>
+                            <div class="roadmap-game-desc">Planned Updates</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ABOUT PAGE -->
+            <div id="about" class="page">
+                <h1 class="section-title">ABOUT ME</h1>
+
+                <div class="about-content">
+                    <h2>Welcome to Aseronni's Lab</h2>
+                    <p>Hey! I'm Aseronni — a 14-year-old indie game developer, 3D modeler, and music composer. This is my corner of the internet where I share the games and projects I'm building from the ground up.</p>
+
+                    <h2>What I Do</h2>
+                    <ul>
+                    <li><strong>Game Development:</strong> Designing and coding original games in Unity</li>
+                    <li><strong>3D Modelling:</strong> Creating assets and environments in Blender</li>
+                    <li><strong>Music & Audio:</strong> Composing original soundtracks in FL Studio</li>
+                    <li><strong>Art & Visuals:</strong> Crafting UI, concept art, and animations in Procreate and After Effects</li>
+                    </ul>
+
+                    <h2>About Me</h2>
+                    <p>I've been making games since I was around 8 or 9, and it's still the thing I'm most passionate about. I handle everything myself — from game design and programming to 3D art, music, and storytelling. My biggest project right now is <em>Terraformation Unknown</em>, a sci-fi simulation game I've been developing for a while.</p>
+
+                    <h2>Get In Touch</h2>
+                    <p>Take a look around, try out my games, and feel free to leave feedback — I genuinely read it. Always happy to connect with other players and developers!</p>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 Aserezonni's Lab. All rights reserved.</p>
+        </footer>
+
+        <script>
+            function showPage(pageName) {
+                // Hide all pages
+                const pages = document.querySelectorAll('.page');
+                pages.forEach(page => {
+                    page.classList.remove('active');
+                });
+
+                // Remove active class from all nav links
+                const navLinks = document.querySelectorAll('.nav-link');
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                });
+
+                // Show selected page
+                document.getElementById(pageName).classList.add('active');
+
+                // Add active class to clicked nav link
+                event.target.classList.add('active');
+            }
+        </script>
+    </body>
+</html>
